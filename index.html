@@ -1,338 +1,204 @@
+
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10 Months Anniversary - For You ✨</title>
-    <style>
-        :root {
-            --bg-color: #fce4ec; /* အနောက်ခံအရောင် ခပ်ဖျော့ဖျော့ */
-            --envelope-color: #f06292; /* စာအိတ်ရဲ့ အဓိကအရောင် */
-            --envelope-dark: #d81b60; /* စာအိတ်အဖုံးရဲ့ အရောင်ရင့် */
-            --paper-color: #ffffff; /* စာရွက်အရောင် */
-            --text-color: #444; /* စာသားအရောင် */
-            --heart-color: #ff1744; /* အသည်းပုံအရောင် */
-            --canvas-bg: #e91e63; /* 'Floating Canvas' ရဲ့ နောက်ခံ */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhyoZawOo 💞 Thoon Thit Thit</title>
 
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: var(--bg-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* စာအိတ်ဖွင့်တဲ့အခါ scrollbar မပေါ်အောင် */
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap');
 
-        /* ပင်မ container */
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        /* 1. Floating Canvas Heart Effect */
-        .floating-canvas {
-            width: 90vw;
-            max-width: 400px;
-            height: 60px;
-            background: var(--canvas-bg);
-            border-radius: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-            border: 2px solid white;
-        }
+body {
+    margin: 0;
+    background: #0b0205;
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        /* Canvas ထဲက Floating Hearts Animation */
-        .floating-canvas .heart {
-            position: absolute;
-            background: white;
-            width: 10px;
-            height: 10px;
-            transform: rotate(45deg);
-            opacity: 0.8;
-            bottom: -20px;
-            animation: floatHeart 4s ease-in infinite;
-        }
+#header-text {
+    position: absolute;
+    top: 35px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(19px, 5vw, 28px);
+    text-shadow: 0 0 10px #ff1493, 0 0 20px #ff69b4;
+    z-index: 10;
+}
 
-        .floating-canvas .heart::before,
-        .floating-canvas .heart::after {
-            content: "";
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-        }
+canvas {
+    display: block;
+    position: absolute;
+    inset: 0;
+}
 
-        .floating-canvas .heart::before { top: -5px; }
-        .floating-canvas .heart::after { left: -5px; }
+#photo {
+    position: absolute;
+    width: clamp(125px, 38vw, 190px);
+    height: clamp(145px, 43vw, 220px);
+    object-fit: cover;
+    object-position: center;
+    border-radius: 22px;
+    border: 3px solid #ff85c0;
+    box-shadow:
+        0 0 15px #ff1493,
+        0 0 35px #ff69b4;
+    z-index: 2;
+    animation: photoGlow 2s infinite alternate;
+}
 
-        @keyframes floatHeart {
-            0% { bottom: -20px; transform: translateX(0) rotate(45deg); opacity: 1; }
-            100% { bottom: 100px; transform: translateX(var(--x-diff)) rotate(45deg); opacity: 0; }
-        }
-
-        /* 2. Photo Slideshow (စာအိတ်မဖွင့်ခင် မမြင်ရစေရန် စာအိတ်အနောက်မှာ ထားမည်) */
-        .photo-slideshow {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(0);
-            width: 180px;
-            height: 130px;
-            overflow: hidden;
-            border-radius: 5px;
-            border: 3px solid white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.8s 0.6s;
-            opacity: 0;
-            z-index: 0; /* စာအိတ်နောက်မှာထား */
-        }
-
-        .photo-slideshow img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-
-        /* 3. စာအိတ် */
-        .envelope-container {
-            position: relative;
-            cursor: pointer;
-            width: 300px;
-            height: 200px;
-            transition: transform 0.5s;
-        }
-
-        /* စာအိတ်ကာဗာ (အောက်ပိုင်းနှင့် ဘေးတိုက်) */
-        .envelope-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background-color: var(--envelope-color);
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        /* စာအိတ်အဖုံး (အပေါ်ပိုင်း) */
-        .envelope-wrapper::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            z-index: 2;
-            border-top: 110px solid var(--envelope-dark);
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            transform-origin: top;
-            transition: transform 0.5s 0.3s, z-index 0s 0.5s;
-        }
-
-        /* စာအိတ်အတွင်းပိုင်း ဘေးအနားများ */
-        .envelope-wrapper::after {
-            content: "";
-            position: absolute;
-            z-index: 2;
-            width: 0;
-            height: 0;
-            border-top: 100px solid transparent;
-            border-right: 150px solid var(--envelope-color);
-            border-bottom: 100px solid var(--envelope-color);
-            border-left: 150px solid var(--envelope-color);
-            border-radius: 0 0 10px 10px;
-        }
-
-        /* 4. စာရွက် */
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            height: 80%;
-            background: var(--paper-color);
-            padding: 20px;
-            box-sizing: border-box;
-            border-radius: 5px;
-            transition: transform 0.5s, bottom 0.5s;
-            z-index: 1;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .letter .text {
-            font-size: 14px;
-            color: var(--text-color);
-            line-height: 1.6;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        /* --- ဖွင့်ထားတဲ့အချိန် animations --- */
-        .envelope-container.open .envelope-wrapper::before {
-            transform: rotateX(180deg);
-            z-index: 0; /* အဖုံးပွင့်သွားရင် အနောက်ရောက်သွားမယ် */
-        }
-
-        .envelope-container.open .letter {
-            transform: translateX(-50%) translateY(-150px);
-            z-index: 3;
-            height: auto;
-            min-height: 250px;
-        }
-
-        /* စာအိတ်ဖွင့်တဲ့အခါ ပုံစံလေးတွေ ပိုလှအောင် */
-        .envelope-container.open {
-            transform: translateY(100px); /* စာအိတ်အောက်နည်းနည်းဆင်း */
-        }
-
-        /* ဖွင့်ပြီးမှ ပုံ Slideshow က အပေါ်ကို တက်လာမယ် */
-        .envelope-container.open ~ .photo-slideshow {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-150px);
-            z-index: 4; /* စာသားအပေါ်မှာထား */
-        }
-
-        .envelope-container.open .text {
-            opacity: 1;
-            transition-delay: 1s; /* စာရွက်အပေါ်တက်ပြီးမှ စာသားပေါ်လာမယ် */
-        }
-
-        /* အသည်းပုံလေး (စာအိတ်ပိတ်တဲ့နေရာ) */
-        .envelope-heart-seal {
-            position: absolute;
-            top: 100px;
-            left: 50%;
-            width: 30px;
-            height: 30px;
-            background: var(--heart-color);
-            z-index: 4;
-            transform: translate(-50%, -50%) rotate(45deg);
-            transition: opacity 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .envelope-heart-seal::before, .envelope-heart-seal::after {
-            content: "";
-            width: 30px;
-            height: 30px;
-            background: var(--heart-color);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .envelope-heart-seal::before { left: -15px; }
-        .envelope-heart-seal::after { top: -15px; }
-
-        /* စာအိတ်ဖွင့်ရင် အသည်းပုံ seal က ပျောက်သွားမယ် */
-        .envelope-container.open .envelope-heart-seal {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* ညွှန်ကြားချက်စာသား */
-        .hint-text {
-            position: absolute;
-            bottom: -50px;
-            width: 100%;
-            text-align: center;
-            color: #f06292;
-            font-weight: bold;
-            font-size: 0.9rem;
-            animation: pulseHint 2s infinite;
-        }
-
-        @keyframes pulseHint {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-    </style>
+@keyframes photoGlow {
+    from {
+        box-shadow: 0 0 12px #ff1493;
+    }
+    to {
+        box-shadow: 0 0 30px #ff69b4, 0 0 45px #ff1493;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="main-container">
-        <div class="floating-canvas">
-            10 Months Anniversary ✨
-            <div id="canvas-hearts"></div>
-        </div>
+<div id="header-text">
+    PhyoZawOo 💞 Thoon Thit Thit
+</div>
 
-        <div class="envelope-container" onclick="toggleEnvelope(this)">
-            <div class="envelope-wrapper">
-                <div class="letter">
-                    <div class="text">
-                        ဒီ ၁၀ လအတွင်းမှာ ကိုယ့်ကို အပျော်ဆုံးလူတစ်ယောက် ဖြစ်အောင်ထားပေးလို့ ကျေးဇူးပါ။ <br><br>
-                        ငယ်နဲ့အတူ ဖြတ်သန်းရတဲ့ နေ့ရက်တိုင်းက ကိုယ့်အတွက်တော့ တန်ဖိုးရှိလွန်းတယ်။ <br><br>
-                        နောက်ထပ် လပေါင်းများစွာ၊ နှစ်ပေါင်းများစွာအထိ ဒီလိုပဲ တစ်ယောက်ကိုတစ်ယောက် ချစ်သွားကြစို့။ <br><br>
-                        <strong>ချစ်ရပါသော ငယ်💞</strong>
-                    </div>
-                </div>
-            </div>
-            <div class="envelope-heart-seal"></div>
-            <div class="hint-text">စာအိတ်လေးကို နှိပ်လိုက်ပါ ငယ်...</div>
-        </div>
+<canvas id="heartCanvas"></canvas>
 
-        <div class="photo-slideshow">
-            <img src="photo1.jpg" alt="Photo 1">
-            <img src="photo2.jpg" alt="Photo 2">
-            <img src="photo3.jpg" alt="Photo 3">
-        </div>
-    </div>
+<img
+    id="photo"
+    src="https://i.postimg.cc/wTCSV2CC/IMG-20260109-204745.jpg"
+    alt="Our Memory"
+>
 
-    <script>
-        // စာအိတ်ဖွင့်/ပိတ် Animation
-        function toggleEnvelope(element) {
-            element.classList.toggle('open');
+<script>
+const canvas = document.getElementById('heartCanvas');
+const ctx = canvas.getContext('2d');
+
+let width, height;
+
+const orbitText = "i love u";
+const centerName = "Thoon";
+const emojis = ["🍓", "🐱", "✨", "🎀", "🍓", "🐾"];
+
+let backgroundElements = [];
+
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    initBackground();
+}
+
+function initBackground() {
+    backgroundElements = [];
+
+    for (let i = 0; i < 40; i++) {
+        backgroundElements.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 20 + 15,
+            emoji: emojis[Math.floor(Math.random() * emojis.length)],
+            speed: Math.random() * 0.5 + 0.2,
+            opacity: Math.random() * 0.5 + 0.3
+        });
+    }
+}
+
+window.addEventListener('resize', resize);
+resize();
+
+function getHeartPoint(t) {
+    return {
+        x: 16 * Math.pow(Math.sin(t), 3),
+        y: -(13 * Math.cos(t)
+        - 5 * Math.cos(2*t)
+        - 2 * Math.cos(3*t)
+        - Math.cos(4*t))
+    };
+}
+
+function animate() {
+
+    ctx.fillStyle = 'rgba(11, 2, 5, 0.2)';
+    ctx.fillRect(0, 0, width, height);
+
+    const time = Date.now() * 0.0012;
+    const size = Math.min(width, height) / 38;
+
+    // Floating Background
+    backgroundElements.forEach(el => {
+        ctx.globalAlpha = el.opacity;
+        ctx.font = `${el.size}px Arial`;
+        ctx.fillText(el.emoji, el.x, el.y);
+
+        el.y -= el.speed;
+
+        if (el.y < -30) {
+            el.y = height + 30;
         }
+    });
 
-        // Canvas Effect ထဲက Floating Hearts
-        const canvasHearts = document.getElementById('canvas-hearts');
-        setInterval(() => {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 90 + 5 + '%'; // ဘေးတိုက်နေရာ
-            heart.style.setProperty('--x-diff', (Math.random() - 0.5) * 40 + 'px'); // ဘယ်/ညာ တုန်ခါမှု
-            canvasHearts.appendChild(heart);
-            setTimeout(() => heart.remove(), 4000); // 4 စက္ကန့်ကြာရင် ဖျက်မယ်
-        }, 500); // 0.5 စက္ကန့်တိုင်း အသည်းပုံအသစ်
+    ctx.globalAlpha = 1;
 
-        // Photo Slideshow Animation
-        const slides = document.querySelectorAll('.photo-slideshow img');
-        let currentSlide = 0;
-        
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.style.opacity = i === index ? 1 : 0;
-            });
-        }
+    // Orbiting Heart Text
+    const count = 55;
 
-        // 3 စက္ကန့်တိုင်း ပုံပြောင်းမယ် (ပထမပုံကနေ စမယ်)
-        showSlide(currentSlide);
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }, 3000);
+    ctx.font = "italic 13px Arial";
+    ctx.fillStyle = "#ff85c0";
 
-    </script>
+    for (let i = 0; i < count; i++) {
+
+        const t = (i / count) * Math.PI * 2 + time * 0.5;
+        const pos = getHeartPoint(t);
+
+        const x = width / 2 + pos.x * size;
+        const y = height / 2 + pos.y * size;
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(t + Math.PI / 1.5);
+        ctx.fillText(orbitText, 0, 0);
+        ctx.restore();
+    }
+
+    // Center Name Below Photo
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = "#ff1493";
+    ctx.fillStyle = "#ffffff";
+    ctx.textAlign = "center";
+    ctx.font = "bold 42px 'Dancing Script', cursive";
+
+    const beat = 1 + Math.sin(time * 3) * 0.06;
+
+    ctx.save();
+    ctx.translate(
+        width / 2,
+        height / 2 + Math.min(width, height) * 0.25
+    );
+    ctx.scale(beat, beat);
+    ctx.fillText(centerName, 0, 15);
+    ctx.restore();
+
+    ctx.shadowBlur = 0;
+
+    requestAnimationFrame(animate);
+}
+
+document.fonts.ready.then(() => {
+    animate();
+});
+</script>
+
 </body>
 </html>
